@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title> Welcome Page</title>
+  <title>UCSR Welcome Page</title>
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -14,46 +14,92 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
     }
+
     header {
       background-color: #343a40;
       color: white;
       padding: 2rem 1rem;
       text-align: center;
     }
+
     main {
       flex: 1;
-
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
       padding: 2rem;
     }
-    footer {
-      background-color: #212529;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-    }
-    .dropdown {
-  position: relative;
-}
- .info-box {
-      background-color: #ffffffcc;
-      border-left: 5px solid #0d6efd;
-      padding: 1.5rem;
-      text-align: left;
-      border-radius: 0.75rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      margin: 10px;
 
+    .section-container {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
     }
+
+    .box {
+      flex: 1;
+      min-width: 300px;
+      background-color: #ffffffcc;
+      border-radius: 1rem;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .box:hover {
+      transform: translateY(-5px);
+    }
+
     .info-box p {
       margin: 0;
       font-size: 1rem;
       font-weight: 500;
       color: #333;
+    }
+
+    .links-box h5 {
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #0d6efd;
+    }
+
+    .links-box a {
+      display: block;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #0d6efd;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      color: #0d6efd;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .links-box a:hover {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    footer {
+      background-color: #212529;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      position: relative;
+    }
+    .linkk
+    {
+      justify-content: center;
+      text-align: center;
+      margin: 50px;
+
+    }
+    #collapseExample1{
+      margin: 20px;
+    }
+    #collapseExample2{
+      margin: 20px;
     }
 
   </style>
@@ -66,45 +112,81 @@
   </header>
 
   <main>
-    <h2 class="mb-4">Choose Your Material</h2>
-    <p class="lead">Access materials for various semesters and additional resources easily.</p>
-    <div class="dropdown-container">
-  <div class="dropdown dropend">
-    <button class="btn btn-dark rounded-pill px-4 py-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Select
-    </button>
-    <ul class="dropdown-menu">
-      <li><h6 class="dropdown-header">Semester Materials</h6></li>
-      <li><a class="dropdown-item" href="1-1(cse).html">1-1 CSE</a></li>
-      <li><a class="dropdown-item" href="1-2(cse).html">1-2 CSE</a></li>
-      <li><a class="dropdown-item" href="2-1(cse).html">2-1 CSE</a></li>
-      <li><a class="dropdown-item" href="2-2(cse).html">2-2 CSE</a></li>
-       <li><a class="dropdown-item" href="3-1(cse).html">3-1 CSE</a></li>
-        <li><a class="dropdown-item" href="3-2(cse).html">3-2 CSE</a></li>
-         <li><a class="dropdown-item" href="4-1(cse).html">4-1 CSE</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><h6 class="dropdown-header">Extra Resources</h6></li>
-      <li><a class="dropdown-item" href="extra_resources.html">RESOURCES</a></li>
-      <li><a class="dropdown-item" href="extra_resources_2.html">RESOURCES-2</a></li>
-    </ul>
-  </div>
-   <div class="col-md-6 mb-4">
-        <div class="info-box">
-          <p>
-            If you don’t find the materials you’re looking for, kindly collect them yourself and send them to our email so we can make them accessible for everyone.
-            <br><br>
-            Let’s ensure every student has every resource they need.
-            <br><br>
-            Share this with your friends and help spread the word!
-          </p>
-        </div>
-      </div>
-</div>
+    <h2 class="text-center mb-4">Choose Your Material</h2>
+    <p class="text-center lead">Quick access to semester-wise materials and extra resources.</p>
 
+    <div class="section-container">
+      <!-- Material Links -->
+      <div class="box links-box">
+        <h5>Semester Materials</h5>
+        <a href="1-1(cse).html">1-1 CSE</a>
+        <a href="1-2(cse).html">1-2 CSE</a>
+        <a href="2-1(cse).html">2-1 CSE</a>
+        <a href="2-2(cse).html">2-2 CSE</a>
+        <a href="3-1(cse).html">3-1 CSE</a>
+        <a href="3-2(cse).html">3-2 CSE</a>
+        <a href="4-1(cse).html">4-1 CSE</a>
+        <hr>
+        <h5>Extra Resources</h5>
+        <a href="extra_resources.html">Resources 1</a>
+        <a href="extra_resources_2.html">Resources 2</a>
+        <a href="extra_resources_3.html">More</a>
+
+      </div>
+      <div class="box info-box">
+        <p>
+          Can’t find your required material?<br><br>
+          Help others by collecting and emailing us the content so we can add it here for all students.
+          <br><br>
+          💡 Let’s ensure no student is left behind.<br><br>
+          🚀 Share this platform with friends and classmates!
+        </p>
+        <div class="linkk">
+          <p class="d-inline-flex gap-1">
+       <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+    About
+  </a>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+    Disclaimer
+  </button>
+</p>
+<div class="collapse" id="collapseExample1">
+  <div class="card card-body">
+   This is a page where you can find<br>
+all materials for your semester.<br>
+All the materials are not available<br>
+yet; they will be updated soon.<br>
+This website consists of materials for the<br>
+<b>R23 regulation</b>.<br>
+If you have materials for other regulations,<br>
+you can send them to our email:<br>
+<strong>cseab2027@gmail.com</strong><br>
+Make this website useful for everyone.<br>
+
+  </div>
+</div>
+<div class="collapse" id="collapseExample2">
+  <div class="card card-body">
+   <p>
+1. All materials here are for learning only.<br>
+Please don't misuse or share them wrongly.<br><br>
+
+2. Lab resources are for reference only.<br>
+Don't copy and submit directly.<br><br>
+
+3. If you have any useful materials,<br>
+send them to: <strong>cseab2027@gmail.com</strong><br>
+</p>
+  </div>
+</div>
+ </div>
   </main>
-  
+        </div>
+      
+
   <footer>
-    All rights reserved to Umachandra CSE-A
+     <p>©  CSE2027 </p>
+</footer>
   </footer>
 
 </body>
