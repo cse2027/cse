@@ -30,20 +30,16 @@
     }
 
     .section-container {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: block; /* Changed from flex to block to stack vertically */
       margin-top: 2rem;
     }
 
     .box {
-      flex: 1;
-      min-width: 300px;
       background-color: #ffffffcc;
       border-radius: 1rem;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       padding: 2rem;
+      margin-bottom: 2rem; /* Add spacing between stacked boxes */
       transition: transform 0.3s ease;
     }
 
@@ -86,22 +82,18 @@
       color: white;
       text-align: center;
       padding: 1rem;
-      position: relative;
     }
-    .linkk
-    {
+
+    .linkk {
       justify-content: center;
       text-align: center;
       margin: 50px;
-
-    }
-    #collapseExample1{
-      margin: 20px;
-    }
-    #collapseExample2{
-      margin: 20px;
     }
 
+    #collapseExample1,
+    #collapseExample2 {
+      margin: 20px;
+    }
   </style>
 </head>
 
@@ -117,7 +109,8 @@
     <p class="text-center lead">Quick access to semester-wise materials and extra resources.</p>
 
     <div class="section-container">
-      <!-- Material Links -->
+      
+      <!-- Semester Materials -->
       <div class="box links-box">
         <h5>Semester Materials</h5>
         <a href="1-1(cse).html">1-1 CSE</a>
@@ -132,8 +125,9 @@
         <a href="extra_resources.html">Resources 1</a>
         <a href="extra_resources_2.html">Resources 2</a>
         <a href="extra_resources_3.html">More</a>
-
       </div>
+
+      <!-- Info Box -->
       <div class="box info-box">
         <p>
           Can’t find your required material?<br><br>
@@ -142,52 +136,53 @@
           💡 Let’s ensure no student is left behind.<br><br>
           🚀 Share this platform with friends and classmates!
         </p>
+
         <div class="linkk">
           <p class="d-inline-flex gap-1">
-       <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
-    About
-  </a>
-  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
-    Disclaimer
-  </button>
-</p>
-<div class="collapse" id="collapseExample1">
-  <div class="card card-body">
-   This is a page where you can find<br>
-all materials for your semester.<br>
-All the materials are not available<br>
-yet; they will be updated soon.<br>
-This website consists of materials for the<br>
-<b>R23 regulation</b>.<br>
-If you have materials for other regulations,<br>
-you can send them to our email:<br>
-<strong>cseab2027@gmail.com</strong><br>
-Make this website useful for everyone.<br>
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+              About
+            </a>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+              Disclaimer
+            </button>
+          </p>
 
-  </div>
-</div>
-<div class="collapse" id="collapseExample2">
-  <div class="card card-body">
-   <p>
-1. All materials here are for learning only.<br>
-Please don't misuse or share them wrongly.<br><br>
+          <div class="collapse" id="collapseExample1">
+            <div class="card card-body">
+              This is a page where you can find<br>
+              all materials for your semester.<br>
+              All the materials are not available<br>
+              yet; they will be updated soon.<br>
+              This website consists of materials for the<br>
+              <b>R23 regulation</b>.<br>
+              If you have materials for other regulations,<br>
+              you can send them to our email:<br>
+              <strong>cseab2027@gmail.com</strong><br>
+              Make this website useful for everyone.<br>
+            </div>
+          </div>
 
-2. Lab resources are for reference only.<br>
-Don't copy and submit directly.<br><br>
+          <div class="collapse" id="collapseExample2">
+            <div class="card card-body">
+              <p>
+                1. All materials here are for learning only.<br>
+                Please don't misuse or share them wrongly.<br><br>
 
-3. If you have any useful materials,<br>
-send them to: <strong>cseab2027@gmail.com</strong><br>
-</p>
-  </div>
-</div>
- </div>
-  </main>
+                2. Lab resources are for reference only.<br>
+                Don't copy and submit directly.<br><br>
+
+                3. If you have any useful materials,<br>
+                send them to: <strong>cseab2027@gmail.com</strong><br>
+              </p>
+            </div>
+          </div>
         </div>
-      
+      </div>
+    </div>
+  </main>
 
   <footer>
-     <p>©  CSE2027 </p>
-</footer>
+    <p>© CSE2027</p>
   </footer>
 
 </body>
