@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Drive Uploader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    :root {
+      --fuchsia: #D8125B;
+      --dark:    #2C2E39;
+    }
+    body { background: var(--dark); color: #fff; }
+    .card {
+      background: #1f2028;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .btn {
+      background: var(--fuchsia);
+      border-radius: 14px;
+      font-weight: 700;
+      transition: transform .05s ease, opacity .2s ease;
+    }
+    .btn:active { transform: scale(.98); }
+    .btn:hover  { opacity: .92; }
+    input[type="file"] { display:none; } /* hide default choose-file */
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+
+  <div class="card w-full max-w-md rounded-2xl p-8">
+    <h1 class="text-2xl font-extrabold text-center mb-6" style="color:#D8125B;">
+      📂 Upload to Google Drive
+    </h1>
+
+    <!-- Folder select -->
+    <label class="block text-sm mb-2 opacity-80">Select folder</label>
+    <select id="folderSelect" class="w-full mb-6 p-3 rounded-lg text-black">
+      <option value="" selected>-- choose --</option>
+      <option value="19G4Sbq7H2aZf6239gNdjt6xLly5Gpk6V">AI</option>
+      <option value="1G7kSWZjhpuoEhKyu6CijFITnWf3rOux6">CN LAB</option>
+      <option value="1H59RbJq-pN34vndRCTPySeO4t-8CbvcU">CN THEORY</option>
+      <option value="1TULzFE_imkyzNrBjiIXK_dXKGuknkLcz">DWDM LAB</option>
+      <option value="1TO4erL-VIR41a2Q9mXFtJYLWXceK_9cn">DWDM THEORY</option>
+      <option value="1RkYj1CRJWrwUgCadAIIs9HiOmjFsps9j">EDVC</option>
+      <option value="10-WuZQivtwuiFKMNSpE-B5vLqSHyAueR">Flat</option>
+      <option value="1LdBJvr2amWeEQTYggHaNp-PXMJKQIoSm">FSD Lab</option>
+      <option value="1Y9TiOMu8uMcXtkDhDzg1WowPvwyLttCU">FSD Theory</option>
+      <option value="1HHj6VzfwdaU5IWY0hYDp5A7H3dBEa9nC">Life Skills</option>
+    </select>
+
+    <!-- Pretty upload button (no default file picker UI) -->
+    <label for="fileInput"
+           class="btn w-full flex items-center justify-center gap-2 px-6 py-3 cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M16 12l-4-4m0 0l-4 4m4-4v12"/>
+      </svg>
+      Upload File
+    </label>
+    <input id="fileInput" type="file" />
+
+    <!-- Tiny helper text -->
+    <p class="mt-4 text-xs opacity-70 text-center">
+      Your file uploads immediately after you pick it.
+    </p>
+
+    <!-- Development Note Box -->
+       <!-- Development notice -->
+    <div class="mt-6 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/40 text-sm text-yellow-300 text-center">
+      🚧 <strong>This tool is currently under development.</strong><br/>
+      Additional subject folders will be added soon.<br/>
+      Please use this feature responsibly.
+    </div>
+
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbynNNognNDcQwj1VKWZIvQLTFgSgKXJXR9U22r86CWSUqBZ2gDWJrh3BFtS0WmiBxag/exec"; // <-- paste your GAS Web App URL here
+    const folderSelect = document.getElementById("folderSelect");
+    const fileInput    = document.getElementById("fileInput");
+
+    fileInput.addEventListener("change", async () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      if (!folderSelect.value) {
+        Swal.fire("Folder required", "Please select a folder first.", "warning");
+        fileInput.value = "";
+        return;
+      }
+
+      // Show uploading modal
+      Swal.fire({
+        title: "Uploading...",
+        text: "Please wait while we send your file.",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+
+      try {
+        // Read file as ArrayBuffer, then encode to base64 (no data: prefix)
+        const arrayBuffer = await file.arrayBuffer();
+        const bytes = new Uint8Array(arrayBuffer);
+        let binary = "";
+        for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+        const base64 = btoa(binary);
+
+        // Send to GAS
+        const form = new FormData();
+        form.append("file", base64);
+        form.append("filename", file.name);
+        form.append("mimeType", file.type || "application/octet-stream");
+        form.append("folderId", folderSelect.value);
+
+        const res = await fetch(scriptURL, { method: "POST", body: form });
+        const data = await res.json();
+
+        if (data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "Uploaded!",
+            html: `Your file has been uploaded.<br/>
+                   <a href="${data.fileUrl}" target="_blank"
+                      style="color:#D8125B;text-decoration:underline;">Open in Drive</a>`,
+            confirmButtonColor: "#D8125B"
+          });
+        } else {
+          throw new Error(data.error || "Upload failed.");
+        }
+      } catch (err) {
+        Swal.fire({ icon: "error", title: "Error", text: err.message });
+      } finally {
+        // Reset input so selecting the same file again will trigger 'change'
+        fileInput.value = "";
+      }
+    });
+  </script>
+</body>
+</html>

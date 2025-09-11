@@ -1,116 +1,278 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1-2</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #0d6efd;
-      color: #fff;
-      text-align: center;
-      padding: 1rem;
-      font-weight: 500;
-    }
-    .btn-toolbar {
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-    .btn-group {
-      margin-right: 1rem;
-    }
-    .notice {
-      background-color: #0d6efd;
-      color: #fff;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 1rem;
-      font-weight: 500;
-    }
-    a {
-      color: #0d6efd;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    footer {
-      background-color: #212529;
-      color: #fff;
-      text-align: center;
-      padding: 1rem;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-    }
-     @media (max-width: 576px) {
-      .btn-toolbar {
+<html>
+  <head>
+    <title>Semester-2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: #333;
+        font-family: consolas;
+        display: flex;
         flex-direction: column;
-        padding: 25px;
+        align-items: center;
       }
-      .btn-group {
-        flex-direction: column;
+
+      /* Home Button fixed on top-left */
+      .button {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: rgb(20, 20, 20);
+        border: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
+        cursor: pointer;
+        transition-duration: 0.3s;
+        overflow: hidden;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+      }
+
+      .svgIcon {
+        width: 12px;
+        transition-duration: 0.3s;
+      }
+
+      .svgIcon path {
+        fill: white;
+      }
+
+      .button:hover {
+        width: 140px;
+        border-radius: 50px;
+        transition-duration: 0.3s;
+        background-color: rgb(181, 160, 255);
+        align-items: center;
+      }
+
+      .button:hover .svgIcon {
+        transform: translateY(-200%);
+      }
+
+      .button::before {
+        position: absolute;
+        bottom: -20px;
+        content: "Home";
+        color: white;
+        font-size: 0px;
+      }
+
+      .button:hover::before {
+        font-size: 13px;
+        opacity: 1;
+        bottom: unset;
+        transition-duration: 0.3s;
+      }
+
+      /* Card container grid */
+      .container {
         width: 100%;
-        padding: 5px;
+        max-width: 1100px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* default 3 per row */
+        gap: 20px;
+        margin-top: 100px; /* avoid overlap with button */
+        padding: 20px;
       }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    📢 If any new materials are found, please send them to
-    <a href="mailto:cseab2027@gmail.com" class="text-white fw-bold">cseab2027@gmail.com</a>
-  </header>
-  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group me-2" role="group" aria-label="First group">
-      <a href="1-1(cse).html"  class="btn btn-primary">1-1</a>
+
+      /* Tablets → 2 cards per row */
+      @media (max-width: 900px) {
+        .container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* Mobile → 1 card per row */
+      @media (max-width: 600px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card {
+        position: relative;
+        cursor: pointer;
+      }
+
+      .card .face {
+        width: 100%;
+        height: 200px;
+        transition: 0.5s;
+      }
+
+      .card .face.face1 {
+        position: relative;
+        background: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        transform: translateY(100px);
+        flex-direction: column;
+      }
+
+      .card:hover .face.face1 {
+        background: #ff0057;
+        transform: translateY(0);
+      }
+
+      .card .face.face1 .content {
+        opacity: 0.2;
+        transition: 0.5s;
+        text-align: center;
+      }
+
+      .card:hover .face.face1 .content {
+        opacity: 1;
+      }
+
+      .card .face.face1 .content i {
+        font-size: 60px;
+        color: white;
+        margin-bottom: 10px;
+      }
+
+      .card .face.face1 .content h3 {
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        font-size: 1.5em;
+      }
+
+      .card .face.face2 {
+        position: relative;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        transform: translateY(-100px);
+      }
+
+      .card:hover .face.face2 {
+        transform: translateY(0);
+      }
+
+      .card .face.face2 .content p {
+        margin: 0;
+        padding: 0;
+      }
+
+      .card .face.face2 .content a {
+        margin: 15px 0 0;
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 900;
+        color: #333;
+        padding: 5px;
+        border: 1px solid #333;
+      }
+
+      .card .face.face2 .content a:hover {
+        background: #333;
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Home Button -->
+    <button class="button" title="Home" onclick="window.location.href='index.html'">
+      <svg class="svgIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="24" height="24">
+        <path d="M575.8 255.5c0 9.1-7.4 16.5-16.5 16.5H528v176c0 26.5-21.5 48-48 48h-80c-8.8 
+                 0-16-7.2-16-16V368c0-26.5-21.5-48-48-48h-64c-26.5 0-48 21.5-48 
+                 48v112c0 8.8-7.2 16-16 16h-80c-26.5 0-48-21.5-48-48V272H16.7c-9.1 
+                 0-16.5-7.4-16.5-16.5 0-4.4 1.8-8.6 4.9-11.6L266.4 8.5c12.5-12.5 
+                 32.8-12.5 45.3 0l245.3 236.9c3.1 3 4.9 7.2 4.9 11.6z"/>
+      </svg>
+    </button>
+
+    <div class="container">
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="face face1">
+          <div class="content">
+            <i class="fa-solid fa-folder"></i>
+            <h3>BCME</h3>
+          </div>
+        </div>
+        <div class="face face2">
+          <div class="content">
+            <a href="https://drive.google.com/drive/folders/1J4ZLFcOXy_894L6NEnX8VD-6i1gdfggm?usp=drive_link">OPEN</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="face face1">
+          <div class="content">
+            <i class="fa-solid fa-folder"></i>
+            <h3>BEEE</h3>
+          </div>
+        </div>
+        <div class="face face2">
+          <div class="content">
+            <a href=" https://drive.google.com/drive/folders/1QmD40kSKMgW1WoI7CnfwF-uM3CrW4UnJ?usp=drive_link">OPEN</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="face face1">
+          <div class="content">
+            <i class="fa-solid fa-folder"></i>
+            <h3>CHEM</h3>
+          </div>
+        </div>
+        <div class="face face2">
+          <div class="content">
+            <a href=" https://drive.google.com/drive/folders/1zasesFQQ2GrFOXt3-neQoOtSXGJNdgB9?usp=drive_link">OPEN</a>
+          </div>
+        </div>
+      </div>
+        <div class="card">
+        <div class="face face1">
+          <div class="content">
+            <i class="fa-solid fa-folder"></i>
+            <h3>ENGINEERING GRAPHICS</h3>
+          </div>
+        </div>
+        <div class="face face2">
+          <div class="content">
+            <a href="https://drive.google.com/drive/folders/1dflGXjlbv8Y20QWyLYKBR5_FgoMYGIOC?usp=drive_link">OPEN</a>
+          </div>
+        </div>
+      </div>
+        <div class="card">
+        <div class="face face1">
+          <div class="content">
+            <i class="fa-solid fa-folder"></i>
+            <h3>DE&VC</h3>
+          </div>
+        </div>
+        <div class="face face2">
+          <div class="content">
+            <a href=" https://drive.google.com/drive/folders/169m-Rl2vHa9dWxmctmI3R-VILGRvQxG7?usp=drive_link">OPEN</a>
+          </div>
+        </div>
+      </div>
+
+
     </div>
-    <div class="btn-group me-2" role="group" aria-label="Second group">
-      <a href="2-1(cse).html"  class="btn btn-primary">2-1</a>
-      <a href="2-2(cse).html"  class="btn btn-primary">2-2</a>
-    </div>
-    <div class="btn-group" role="group" aria-label="Third group">
-      <a href="extra_resources.html"  class="btn btn-primary">RESOURCES</a>
-      <a href="extra_resources_2.html"  class="btn btn-primary">RESOURCES-2</a>
-    </div>
-  </div>
-  <div class="container mt-5 pt-3">
-    <table class="table table-bordered text-center align-middle">
-      <thead class="table-dark">
-        <tr>
-          <th>SUB</th>
-          <th>LINK</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>BCME</td>
-          <td><a href="https://drive.google.com/drive/folders/1J4ZLFcOXy_894L6NEnX8VD-6i1gdfggm?usp=drive_link" >Open Resource</a></td>
-        </tr>
-        <tr>
-          <td>BEEE</td>
-          <td><a href="https://drive.google.com/drive/folders/1QmD40kSKMgW1WoI7CnfwF-uM3CrW4UnJ?usp=drive_link" >Open Resource</a></td>
-        </tr>
-        <tr>
-          <td>CHE</td>
-          <td><a href="https://drive.google.com/drive/folders/1zasesFQQ2GrFOXt3-neQoOtSXGJNdgB9?usp=drive_link" >Open Resource</a></td>
-        </tr>
-        <tr>
-          <td>EG</td>
-          <td><a href="https://drive.google.com/drive/folders/1dflGXjlbv8Y20QWyLYKBR5_FgoMYGIOC?usp=drive_link" >Open Resource</a></td>
-        </tr>
-        <tr>
-          <td>DEVC</td>
-          <td><a href="https://drive.google.com/drive/folders/169m-Rl2vHa9dWxmctmI3R-VILGRvQxG7?usp=drive_link" >Open Resource</a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
-</body>
+  </body>
 </html>
