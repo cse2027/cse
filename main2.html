@@ -11,23 +11,20 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background: #333;
-      font-family: consolas, monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+     body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: #333;
+        font-family: consolas;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
     main {
       flex: 1;
-      width: 100%;
       padding-bottom: 60px; /* prevent overlap with footer */
-      display: flex;
-      justify-content: center;
     }
 
     /* Floating Action Button Wrapper (top right corner) */
@@ -126,116 +123,115 @@
     }
 
     /* Card container grid */
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* default 3 per row */
-      gap: 20px;
-      margin-top: 100px; /* avoid overlap with button */
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    /* Tablets → 2 cards per row */
-    @media (max-width: 900px) {
       .container {
-        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        max-width: 1100px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* default 3 per row */
+        gap: 20px;
+        margin-top: 100px; /* avoid overlap with button */
+        padding: 20px;
       }
-    }
 
-    /* Mobile → 1 card per row */
-    @media (max-width: 600px) {
-      .container {
-        grid-template-columns: 1fr;
+      /* Tablets → 2 cards per row */
+      @media (max-width: 900px) {
+        .container {
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
-    }
 
-    .card {
-      position: relative;
-      cursor: pointer;
-    }
+      /* Mobile → 1 card per row */
+      @media (max-width: 600px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+      }
 
-    .card .face {
-      width: 100%;
-      height: 200px;
-      transition: 0.5s;
-    }
+      .card {
+        position: relative;
+        cursor: pointer;
+      }
 
-    .card .face.face1 {
-      position: relative;
-      background: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1;
-      transform: translateY(100px);
-      flex-direction: column;
-    }
+      .card .face {
+        width: 100%;
+        height: 200px;
+        transition: 0.5s;
+      }
 
-    .card:hover .face.face1 {
-      background: #ff0057;
-      transform: translateY(0);
-    }
+      .card .face.face1 {
+        position: relative;
+        background: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        transform: translateY(100px);
+        flex-direction: column;
+      }
 
-    .card .face.face1 .content {
-      opacity: 0.2;
-      transition: 0.5s;
-      text-align: center;
-    }
+      .card:hover .face.face1 {
+        background: #ff0057;
+        transform: translateY(0);
+      }
 
-    .card:hover .face.face1 .content {
-      opacity: 1;
-    }
+      .card .face.face1 .content {
+        opacity: 0.2;
+        transition: 0.5s;
+        text-align: center;
+      }
 
-    .card .face.face1 .content i {
-      font-size: 60px;
-      color: white;
-      margin-bottom: 10px;
-    }
+      .card:hover .face.face1 .content {
+        opacity: 1;
+      }
 
-    .card .face.face1 .content h3 {
-      margin: 0;
-      padding: 0;
-      color: #fff;
-      font-size: 1.5em;
-    }
+      .card .face.face1 .content i {
+        font-size: 60px;
+        color: white;
+        margin-bottom: 10px;
+      }
 
-    .card .face.face2 {
-      position: relative;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      box-sizing: border-box;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-      transform: translateY(-100px);
-    }
+      .card .face.face1 .content h3 {
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        font-size: 1.5em;
+      }
 
-    .card:hover .face.face2 {
-      transform: translateY(0);
-    }
+      .card .face.face2 {
+        position: relative;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        transform: translateY(-100px);
+      }
 
-    .card .face.face2 .content p {
-      margin: 0;
-      padding: 0;
-    }
+      .card:hover .face.face2 {
+        transform: translateY(0);
+      }
 
-    .card .face.face2 .content a {
-      margin: 15px 0 0;
-      display: inline-block;
-      text-decoration: none;
-      font-weight: 900;
-      color: #333;
-      padding: 5px;
-      border: 1px solid #333;
-    }
+      .card .face.face2 .content p {
+        margin: 0;
+        padding: 0;
+      }
 
-    .card .face.face2 .content a:hover {
-      background: #333;
-      color: #fff;
-    }
+      .card .face.face2 .content a {
+        margin: 15px 0 0;
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 900;
+        color: #333;
+        padding: 5px;
+        border: 1px solid #333;
+      }
+
+      .card .face.face2 .content a:hover {
+        background: #333;
+        color: #fff;
+      }
 
     footer {
       background-color: #212529;
@@ -243,7 +239,6 @@
       text-align: center;
       padding: 1rem;
       margin-top: auto; /* sticks footer at bottom */
-      width: 100%;
     }
   </style>
 </head>
@@ -256,26 +251,21 @@
     <label for="fab-toggle" class="fab"><i class="fas fa-plus"></i></label>
 
     <div class="fac">
-      <!-- Visit InfoHub -->
       <a href="https://infohub-vvitu.vercel.app/" target="_blank" data-label="Visit InfoHub">
         <i class="fas fa-rocket"></i>
       </a>
-      <!-- Upload Files -->
       <a href="register.html" target="_blank" data-label="Upload Files">
         <i class="fas fa-folder-open"></i>
       </a>
-      <!-- About -->
-      <a href="abdis.html#about" target="_blank" data-label="About">
+      <a href="abdis.html" data-bs-toggle="collapse" data-bs-target="#aboutCollapse" data-label="About">
         <i class="fas fa-info-circle"></i>
       </a>
-      <!-- Disclaimer -->
-      <a href="abdis.html#disclaimer" target="_blank" data-label="Disclaimer">
+      <a href="abdis.html" data-bs-toggle="collapse" data-bs-target="#disclaimerCollapse" data-label="Disclaimer">
         <i class="fas fa-exclamation-triangle"></i>
       </a>
     </div>
   </div>
-
-  <main>
+  
     <div class="container">
       <!-- Card 1 -->
       <div class="card">
@@ -292,8 +282,7 @@
         </div>
       </div>
 
-      <!-- Card 2 -->
-      <div class="card">
+    <div class="card">
         <div class="face face1">
           <div class="content">
             <i class="fa-solid fa-folder"></i>
@@ -306,8 +295,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Card 3 -->
       <div class="card">
         <div class="face face1">
           <div class="content">
@@ -321,8 +308,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Card 4 -->
       <div class="card">
         <div class="face face1">
           <div class="content">
@@ -336,8 +321,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Card 5 -->
       <div class="card">
         <div class="face face1">
           <div class="content">
@@ -351,8 +334,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Card 6 -->
       <div class="card">
         <div class="face face1">
           <div class="content">
@@ -366,8 +347,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Card 7 -->
       <div class="card">
         <div class="face face1">
           <div class="content">
@@ -381,8 +360,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Card 8 -->
       <div class="card">
         <div class="face face1">
           <div class="content">
@@ -397,12 +374,21 @@
         </div>
       </div>
 
+      <!-- ⭐ NEW MICRO SYLLABUS CARD ADDED -->
+      <div class="card">
+        <div class="face face1">
+          <div class="content">
+            <i class="fa-solid fa-folder"></i>
+            <h3>MICRO SYLLABUS</h3>
+          </div>
+        </div>
+        <div class="face face2">
+          <div class="content">
+            <a href="https://drive.google.com/drive/folders/1pJi8-na6BOWbZlLBSIIi21PueCiRrqCI" target="_blank">OPEN</a>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </main>
-
-  <footer>
-    © 2025 CSE Resource Hub
-  </footer>
-
 </body>
 </html>
