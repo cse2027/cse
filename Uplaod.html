@@ -4,14 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Drive Uploader</title>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- SweetAlert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <style>
     :root {
       --fuchsia: #D8125B;
-      --dark:    #2C2E39;
+      --dark: #2C2E39;
     }
-    body { background: var(--dark); color: #fff; }
+    body {
+      background: var(--dark);
+      color: #fff;
+    }
     .card {
       background: #1f2028;
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
@@ -22,120 +30,126 @@
       font-weight: 700;
       transition: transform .05s ease, opacity .2s ease;
     }
+    .btn:hover { opacity: .92; }
     .btn:active { transform: scale(.98); }
-    .btn:hover  { opacity: .92; }
-    input[type="file"] { display:none; } /* hide default choose-file */
+    input[type="file"] { display: none; }
   </style>
 </head>
+
 <body class="min-h-screen flex items-center justify-center px-4">
 
   <div class="card w-full max-w-md rounded-2xl p-8">
-    <h1 class="text-2xl font-extrabold text-center mb-6" style="color:#D8125B;">
+
+    <h1 class="text-2xl font-extrabold text-center mb-6 text-[#D8125B]">
       📂 Upload to Google Drive
     </h1>
 
-    <!-- Folder select -->
-    <label class="block text-sm mb-2 opacity-80">Select folder</label>
+    <!-- Folder Select -->
+    <label class="block text-sm mb-2 opacity-80">Select Folder</label>
     <select id="folderSelect" class="w-full mb-6 p-3 rounded-lg text-black">
       <option value="" selected>-- choose --</option>
-      <option value="19G4Sbq7H2aZf6239gNdjt6xLly5Gpk6V">AI</option>
-      <option value="1G7kSWZjhpuoEhKyu6CijFITnWf3rOux6">CN LAB</option>
-      <option value="1H59RbJq-pN34vndRCTPySeO4t-8CbvcU">CN THEORY</option>
+
+      <option value="1-HQb3hM-hT-BeOEVFl0inT7pzfGlv2nl">ADSAA</option>
+      <option value="1QmD40kSKMgW1WoI7CnfwF-uM3CrW4UnJ">BEEE</option>
+      <option value="1J4ZLFcOXy_894L6NEnX8VD-6i1gdfggm">BCME</option>
+      <option value="1-1OCS7VFWna8lMhXSsMH3th8RsrJES4y">CD</option>
+      <option value="1uudFSCGM_cWPscMioMEGhsmglK_qOSrT">CNS</option>
+      <option value="1buoBJoKkLoctaZBX9otzHZFn5nM5OyqF">C-PROGRAMMING</option>
+      <option value="138cMJBXxf7MYHAbQHQPuzd04HErm5HfO">Cloud Computing</option>
+      <option value="1zasesFQQ2GrFOXt3-neQoOtSXGJNdgB9">CHEM</option>
+      <option value="12UHz3fOHurzhqw5ebdrrVQ4s4Wx0qnGN">DLCO</option>
       <option value="1TULzFE_imkyzNrBjiIXK_dXKGuknkLcz">DWDM LAB</option>
       <option value="1TO4erL-VIR41a2Q9mXFtJYLWXceK_9cn">DWDM THEORY</option>
-      <option value="1RkYj1CRJWrwUgCadAIIs9HiOmjFsps9j">EDVC</option>
-      <option value="10-WuZQivtwuiFKMNSpE-B5vLqSHyAueR">Flat</option>
-      <option value="1LdBJvr2amWeEQTYggHaNp-PXMJKQIoSm">FSD Lab</option>
-      <option value="1Y9TiOMu8uMcXtkDhDzg1WowPvwyLttCU">FSD Theory</option>
+      <option value="169m-Rl2vHa9dWxmctmI3R-VILGRvQxG7">DE&VC</option>
+      <option value="19B_B_VzP4ZPt_5mjpKIaVKB8Upc1JNcj">DMGT</option>
+      <option value="1MGe3jQFkwqIH95lyzEdn_ySGaufYXnGa">DBMS</option>
+      <option value="1dflGXjlbv8Y20QWyLYKBR5_FgoMYGIOC">ENGINEERING GRAPHICS</option>
+      <option value="1IYbE5UYiSq3DkX8dpJIyHjArYehTmVZd">EP</option>
+      <option value="1LdBJvr2amWeEQTYggHaNp-PXMJKQIoSm">FSD LAB</option>
+      <option value="1Y9TiOMu8uMcXtkDhDzg1WowPvwyLttCU">FSD THEORY</option>
       <option value="1HHj6VzfwdaU5IWY0hYDp5A7H3dBEa9nC">Life Skills</option>
+      <option value="1ShiMH2qIxrLoNBR0UOz8NCDa-Zn0kqF0">JAVA</option>
+      <option value="1vydtrVF_Z4vz5mf6RrkhgeUsij1HvLpI">Machine Learning</option>
+      <option value="1M64Tpc5Uq5AUCqYsPDxWFiYsoj07FhIt">MEFA</option>
+      <option value="1uVspgg2HEWxUu7k17wkqlRwZW--7QKYo">M-1</option>
+      <option value="14cuk4RQjvjvxgvBrG4A3kpBkoT0cgW1E">NLP</option>
+      <option value="1vk7cJyEpOgoDmu8i_4S0k-ViIzrTYs_s">OS</option>
+      <option value="1ixOEBjvm4PKKEs8fdtQKuODDSKjZfhO0">P&S</option>
+      <option value="1gqa5rgpTFGDTmiwpd1WVNigNAToZ_zU-">PHY</option>
+      <option value="1m-Zr8tNW0uISwihD4j7-aJMdEYbGfoZM">SE</option>
+      <option value="1MP5xZQjL-IkzQgTIntu-XptHKo-6AAdM">UHV</option>
     </select>
 
-    <!-- Pretty upload button (no default file picker UI) -->
-    <label for="fileInput"
-           class="btn w-full flex items-center justify-center gap-2 px-6 py-3 cursor-pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-           fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M16 12l-4-4m0 0l-4 4m4-4v12"/>
-      </svg>
-      Upload File
+    <!-- Upload Button -->
+    <label for="fileInput" class="btn w-full flex items-center justify-center gap-2 px-6 py-3 cursor-pointer">
+      ⬆ Upload File
     </label>
     <input id="fileInput" type="file" />
 
-    <!-- Tiny helper text -->
     <p class="mt-4 text-xs opacity-70 text-center">
-      Your file uploads immediately after you pick it.
+      File uploads immediately after selection
     </p>
 
-    <!-- Development Note Box -->
-       <!-- Development notice -->
     <div class="mt-6 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/40 text-sm text-yellow-300 text-center">
-      🚧 <strong>This tool is currently under development.</strong><br/>
-      Additional subject folders will be added soon.<br/>
-      Please use this feature responsibly.
+      🚧 <strong>Under Development</strong><br>
+      More folders & access control coming soon.
     </div>
+  </div>
 
-
+  <!-- SCRIPT -->
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbynNNognNDcQwj1VKWZIvQLTFgSgKXJXR9U22r86CWSUqBZ2gDWJrh3BFtS0WmiBxag/exec"; // <-- paste your GAS Web App URL here
+    const scriptURL = "https://script.google.com/macros/s/AKfycbynNNognNDcQwj1VKWZIvQLTFgSgKXJXR9U22r86CWSUqBZ2gDWJrh3BFtS0WmiBxag/exec";
     const folderSelect = document.getElementById("folderSelect");
-    const fileInput    = document.getElementById("fileInput");
+    const fileInput = document.getElementById("fileInput");
 
     fileInput.addEventListener("change", async () => {
       const file = fileInput.files[0];
       if (!file) return;
 
       if (!folderSelect.value) {
-        Swal.fire("Folder required", "Please select a folder first.", "warning");
+        Swal.fire("Select Folder", "Please choose a folder first", "warning");
         fileInput.value = "";
         return;
       }
 
-      // Show uploading modal
       Swal.fire({
         title: "Uploading...",
-        text: "Please wait while we send your file.",
+        text: "Please wait",
         allowOutsideClick: false,
         didOpen: () => Swal.showLoading()
       });
 
       try {
-        // Read file as ArrayBuffer, then encode to base64 (no data: prefix)
-        const arrayBuffer = await file.arrayBuffer();
-        const bytes = new Uint8Array(arrayBuffer);
+        const buffer = await file.arrayBuffer();
+        const bytes = new Uint8Array(buffer);
         let binary = "";
-        for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+        bytes.forEach(b => binary += String.fromCharCode(b));
         const base64 = btoa(binary);
 
-        // Send to GAS
         const form = new FormData();
         form.append("file", base64);
         form.append("filename", file.name);
-        form.append("mimeType", file.type || "application/octet-stream");
+        form.append("mimeType", file.type);
         form.append("folderId", folderSelect.value);
 
         const res = await fetch(scriptURL, { method: "POST", body: form });
         const data = await res.json();
 
-        if (data.success) {
-          Swal.fire({
-            icon: "success",
-            title: "Uploaded!",
-            html: `Your file has been uploaded.<br/>
-                   <a href="${data.fileUrl}" target="_blank"
-                      style="color:#D8125B;text-decoration:underline;">Open in Drive</a>`,
-            confirmButtonColor: "#D8125B"
-          });
-        } else {
-          throw new Error(data.error || "Upload failed.");
-        }
-      } catch (err) {
-        Swal.fire({ icon: "error", title: "Error", text: err.message });
+        if (!data.success) throw new Error(data.error);
+
+        Swal.fire({
+          icon: "success",
+          title: "Uploaded!",
+          html: `<a href="${data.fileUrl}" target="_blank" class="underline text-[#D8125B]">Open File</a>`
+        });
+
+      } catch (e) {
+        Swal.fire("Error", e.message, "error");
       } finally {
-        // Reset input so selecting the same file again will trigger 'change'
         fileInput.value = "";
       }
     });
   </script>
+
 </body>
 </html>
