@@ -8,12 +8,19 @@
 </head>
 <body>
     <nav class="menu">
-    <a href="index.html" class="logo">CSEHUB</a>
-    <a href="index.html">Home</a>
-    <a href="semester-6.html">3-2 Materials</a>
-    <a href="materials.html">More</a>
-    <a href="feedback.html">Feedback</a>
-</nav>
+        <a href="index.html" class="logo">CSEHUB</a>
+        <button class="hamburger-toggle" aria-label="Toggle Navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="semester-6.html">3-2 Materials</a>
+            <a href="materials.html">More</a>
+            <a href="feedback.html">Feedback</a>
+        </div>
+    </nav>
 <div class="card-container">
 
     <div class="card">
@@ -110,5 +117,10 @@
 </div>
 
 
+    <script>
+        document.querySelector('.hamburger-toggle').addEventListener('click', function() {
+            document.querySelector('.menu').classList.toggle('open');
+        });
+    </script>
 </body>
 </html>

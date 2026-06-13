@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
+<body style="display: none;">
 
     <form id="registerForm" class="login-card">
         <h3>Create Account</h3>
@@ -48,52 +48,61 @@
     </form>
 
     <script type="module">
-    import { signUp } from "./auth.js";
+        import { signUp, checkSession } from "./auth.js";
 
-    const form = document.getElementById("registerForm");
-
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const email = document
-            .getElementById("email")
-            .value
-            .trim()
-            .toLowerCase();
-
-        const password = document
-            .getElementById("password")
-            .value;
-
-        // Allow only VVIT emails
-        if (!email.endsWith("@vvit.net")) {
-            Swal.fire({
-                icon: "warning",
-                title: "Invalid Email",
-                text: "Only @vvit.net email addresses are allowed."
-            });
-
-            return;
-        }
-
-        const { error } = await signUp(email, password);
-
-        if (error) {
-            Swal.fire({
-                icon: "error",
-                title: "Registration Failed",
-                text: error.message
-            });
+        // Redirect to upload page if already logged in
+        const session = await checkSession();
+        if (session) {
+            window.location.href = "upload.html";
         } else {
-            Swal.fire({
-                icon: "success",
-                title: "Registration Successful",
-                text: "Please check your email to verify your account."
-            }).then(() => {
-                window.location.href = "login.html";
-            });
+            document.body.style.display = "";
         }
-    });
-</script>
+
+        const form = document.getElementById("registerForm");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document
+                .getElementById("email")
+                .value
+                .trim()
+                .toLowerCase();
+
+            const password = document
+                .getElementById("password")
+                .value;
+
+            // Allow only VVIT emails
+            if (!email.endsWith("@vvit.net")) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Invalid Email",
+                    text: "Only @vvit.net email addresses are allowed."
+                });
+
+                return;
+            }
+
+            const { data, error } = await signUp(email, password);
+
+            if (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Registration Failed",
+                    text: error.message
+                });
+            } else {
+                Swal.fire({
+                    icon: "success",
+                    title: "Registration Successful",
+                    text: "Please check your email to verify your account."
+                }).then(() => {
+                    window.location.href = "login.html";
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>

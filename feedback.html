@@ -241,9 +241,16 @@
   <!-- Navigation Menu -->
   <nav class="menu">
     <a href="index.html" class="logo">CSEHUB</a>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="cgpa.html">CGPA</a>
+    <button class="hamburger-toggle" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="menu-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="cgpa.html">CGPA</a>
+    </div>
   </nav>
 
   <div class="feedback-container">
@@ -289,6 +296,11 @@
         spinner.classList.add('hidden');
       });
     }
+
+    // Toggle menu
+    document.querySelector('.hamburger-toggle').addEventListener('click', function() {
+        document.querySelector('.menu').classList.toggle('open');
+    });
   </script>
 
 </body>
