@@ -5,16 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-trigger {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .dropdown-trigger .arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 12px;
+            background: rgba(16, 20, 38, 0.9);
+            backdrop-filter: blur(20px) saturate(180%) contrast(200%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%) contrast(200%);
+            border: 1px solid rgba(124, 77, 255, 0.25);
+            border-radius: 16px;
+            padding: 8px;
+            min-width: 160px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(124, 77, 255, 0.15);
+            z-index: 1010;
+        }
+
+        /* Show on hover */
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown:hover .dropdown-trigger .arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content a {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: rgba(247, 247, 255, 0.9);
+            text-decoration: none;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 245, 255, 0.1);
+            color: #00F5FF;
+            transform: translateX(4px);
+        }
+
+        /* Responsive menu behaviour */
+        @media (max-width: 767px) {
+            .dropdown {
+                width: 100%;
+            }
+            .dropdown-trigger {
+                display: none; /* Hide 'More' trigger on mobile drawer, list links directly */
+            }
+            .dropdown-content {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: none;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                width: 100%;
+                gap: 6px;
+                margin-top: 0;
+            }
+            .dropdown-content a {
+                width: 100%;
+                text-align: left;
+                padding: 12px 20px;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.02);
+                font-size: 0.9rem;
+            }
+            .dropdown-content a:hover {
+                background: rgba(0, 245, 255, 0.08);
+                transform: translateX(4px);
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="menu">
-    <a href="#" class="logo">CSEHUB</a>
-    <a href="login.html">Login</a>
-    <a href="register.html">Register</a>
-    <a href="about.html">About</a>
-    <a href="cgpa.html">CGPA</a>
-    <a href="feedback.html">Feedback</a>
-</nav>
+        <a href="#" class="logo">CSEHUB</a>
+        <button class="hamburger-toggle" aria-label="Toggle Navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="menu-links">
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="cgpa.html">CGPA</a>
+            <a href="download.html">Download App</a>
+            <div class="dropdown">
+                <a href="#" class="dropdown-trigger" onclick="return false;">More <span class="arrow">▼</span></a>
+                <div class="dropdown-content">
+                    <a href="about.html">About</a>
+                    <a href="cgpa.html">CGPA</a>
+                    <a href="feedback.html">Feedback</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <div class="card-container">
 
@@ -119,5 +244,10 @@
         </div>
     </div>
 
+    <script>
+        document.querySelector('.hamburger-toggle').addEventListener('click', function() {
+            document.querySelector('.menu').classList.toggle('open');
+        });
+    </script>
 </body>
 </html>

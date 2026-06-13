@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download App - CSEHUB</title>
+    <!-- Link to the main style stylesheet for fonts and nav bar styling -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @font-face {
+            font-family: 'Scaver-Bold';
+            src: url('Scaver-Bold.ttf') format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Scaver-Bold', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 20px 60px;
+            background:
+                radial-gradient(circle at top left, rgba(0, 245, 255, 0.08), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(255, 45, 170, 0.08), transparent 30%),
+                #0B0F1A;
+            color: #F7F7FF;
+            overflow-x: hidden;
+        }
+
+        /* ── Adjust nav max-width to match index ── */
+        .menu {
+            max-width: 750px;
+        }
+
+        /* ── Container and Layout ── */
+        .download-container {
+            width: 100%;
+            max-width: 700px;
+            margin-top: 110px;
+            display: flex;
+            justify-content: center;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Left Side Details Card ── */
+        .download-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(124, 77, 255, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(124, 77, 255, 0.1);
+        }
+
+        .card-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #00F5FF, #7C4DFF, #FF2DAA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .card-header p {
+            font-size: 1.05rem;
+            color: rgba(247, 247, 255, 0.85);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* ── Safe Badge ── */
+        .safe-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #00F5FF;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.05);
+        }
+
+        .safe-badge svg {
+            fill: #00F5FF;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ── Download Action Button ── */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 16px 32px;
+            text-decoration: none;
+            color: #F7F7FF;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #00F5FF, #7C4DFF, #FF2DAA);
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 20px rgba(124, 77, 255, 0.35);
+            margin-bottom: 20px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 0 20px rgba(0, 245, 255, 0.4),
+                0 0 35px rgba(255, 45, 170, 0.4);
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px) scale(0.99);
+        }
+
+        .download-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #F7F7FF;
+            animation: bounceUpDown 1.6s infinite;
+        }
+
+        @keyframes bounceUpDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
+
+        /* ── App Metadata info ── */
+        .app-meta {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            color: rgba(247, 247, 255, 0.6);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .meta-item span {
+            font-weight: 600;
+            color: #F7F7FF;
+        }
+
+        /* ── Instructions List ── */
+        .instructions {
+            background: rgba(16, 20, 38, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .instructions h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #00F5FF;
+            letter-spacing: 0.5px;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: rgba(247, 247, 255, 0.75);
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .instructions li::marker {
+            color: #FF2DAA;
+            font-weight: bold;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 800px) {
+            .download-container {
+                margin-top: 80px;
+                padding: 0 10px;
+            }
+
+            .download-card {
+                padding: 30px 20px;
+            }
+
+            .card-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu -->
+    <nav class="menu">
+        <a href="index.html" class="logo">CSEHUB</a>
+        <button class="hamburger-toggle" aria-label="Toggle Navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="menu-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="cgpa.html">CGPA</a>
+            <a href="feedback.html">Feedback</a>
+            <a href="#" class="active" style="color: #00F5FF;">Download</a>
+        </div>
+    </nav>
+
+    <div class="download-container">
+        <!-- Left details panel -->
+        <div class="download-card">
+            <div class="card-header">
+                <h1>Download CSEHUB Mobile App</h1>
+                <p>Get instant access to academic resources, materials, syllabus archives, and GPA calculation right on your Android mobile device. Stay connected with your coursework on the go!</p>
+            </div>
+
+            <!-- Safe download badge -->
+            <div class="safe-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <span>It's safe to download</span>
+            </div>
+
+            <!-- Download Button -->
+            <a href="https://github.com/cse2027/cse/releases/download/v1.0.0/app-release.apk" class="download-btn" download>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                Download Mobile App
+            </a>
+
+            <!-- App Meta Info -->
+            <div class="app-meta">
+                <div class="meta-item">
+                    <span>Version</span>
+                    v1.0.0
+                </div>
+                <div class="meta-item">
+                    <span>Type</span>
+                    Android APK
+                </div>
+                <div class="meta-item">
+                    <span>Size</span>
+                    ~5.6 MB
+                </div>
+            </div>
+
+            <!-- Installation Instructions -->
+            <div class="instructions">
+                <h3>How to Install on Your Mobile</h3>
+                <ol>
+                    <li>Click the <strong>Download Mobile App</strong> button above to download the APK.</li>
+                    <li>Transfer the APK to your mobile phone (or download directly on your phone browser).</li>
+                    <li>Tap the downloaded file in your file manager or notifications.</li>
+                    <li>If prompted, allow installation of applications from <strong>Unknown Sources</strong> in settings, then complete the setup.</li>
+                </ol>
+            </div>
+        </div>
+
+       
+    </div>
+
+    <script>
+        document.querySelector('.hamburger-toggle').addEventListener('click', function() {
+            document.querySelector('.menu').classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
