@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body style="display: none;">
+<body>
 
     <form id="loginForm" class="login-card">
         <h3> Login</h3>
@@ -35,62 +35,53 @@
         </button>
     </form>
 
-    <script type="module">
-        import { signIn, checkSession } from "./auth.js";
+  <script type="module">
+    import { signIn } from "./auth.js";
 
-        // Redirect to upload page if already logged in
-        const session = await checkSession();
-        if (session) {
-            window.location.href = "upload.html";
-        } else {
-            document.body.style.display = "";
+    const form = document.getElementById("loginForm");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document
+            .getElementById("email")
+            .value
+            .trim()
+            .toLowerCase();
+
+        const password = document
+            .getElementById("password")
+            .value;
+
+        // Allow only VVIT emails
+        if (!email.endsWith("@vvit.net")) {
+            Swal.fire({
+                icon: "warning",
+                title: "Invalid Email",
+                text: "Only @vvit.net email addresses are allowed."
+            });
+
+            return;
         }
 
-        const form = document.getElementById("loginForm");
+        const { error } = await signIn(email, password);
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const email = document
-                .getElementById("email")
-                .value
-                .trim()
-                .toLowerCase();
-
-            const password = document
-                .getElementById("password")
-                .value;
-
-            // Allow only VVIT emails
-            if (!email.endsWith("@vvit.net")) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "Invalid Email",
-                    text: "Only @vvit.net email addresses are allowed."
-                });
-
-                return;
-            }
-
-            const { data, error } = await signIn(email, password);
-
-            if (error) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Login Failed",
-                    text: error.message
-                });
-            } else {
-                Swal.fire({
-                    icon: "success",
-                    title: "Login Successful",
-                    text: "Welcome back!"
-                }).then(() => {
-                    window.location.href = "upload.html";
-                });
-            }
-        });
-    </script>
-
+        if (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Login Failed",
+                text: error.message
+            });
+        } else {
+            Swal.fire({
+                icon: "success",
+                title: "Login Successful",
+                text: "Welcome back!"
+            }).then(() => {
+                window.location.href = "upload.html";
+            });
+        }
+    });
+</script>
 </body>
 </html>
