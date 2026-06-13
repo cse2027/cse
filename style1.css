@@ -1,116 +1,139 @@
-*,
-*:before,
-*:after {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-body {
-  background-color: #080710;
-  font-family: 'Poppins', sans-serif;
-}
-.background {
-  width: 430px;
-  height: 520px;
-  position: absolute;
-  transform: translate(-50%,-50%);
-  left: 50%;
-  top: 50%;
-}
-.background .shape {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
-}
-.shape:first-child {
-  background: linear-gradient(#1845ad, #23a2f6);
-  left: -80px;
-  top: -80px;
-}
-.shape:last-child {
-  background: linear-gradient(to right, #ff512f, #f09819);
-  right: -30px;
-  bottom: -80px;
-}
-form {
-  height: 520px;
-  width: 400px;
-  background-color: rgba(255,255,255,0.13);
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,255,255,0.1);
-  box-shadow: 0 0 40px rgba(8,7,16,0.6);
-  padding: 50px 35px;
-}
-form * {
-  color: #ffffff;
-  letter-spacing: 0.5px;
-  outline: none;
-  border: none;
-}
-form h3 {
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 42px;
-  text-align: center;
-}
-label {
-  display: block;
-  margin-top: 30px;
-  font-size: 16px;
-  font-weight: 500;
-}
-input {
-  display: block;
-  height: 50px;
-  width: 100%;
-  background-color: rgba(255,255,255,0.07);
-  border-radius: 3px;
-  padding: 0 10px;
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 300;
-}
-::placeholder {
-  color: #e5e5e5;
-}
-button {
-  margin-top: 50px;
-  width: 100%;
-  background-color: #ffffff;
-  color: #080710;
-  padding: 15px 0;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 5px;
-  cursor: pointer;
-}
-p {
-  text-align: center;
-  margin-top: 20px;
-}
-a {
-  color: #23a2f6;
-  text-decoration: none;
-}
-/* CSS */
-.button-34 {
-  background: #5E5DF0;
-  border-radius: 999px;
-  box-shadow: #5E5DF0 0 10px 20px -10px;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  padding: 10px 22px;
-  border: none;
-  display: block;
-  margin: 20px auto; /* <-- centers horizontally */
+@font-face {
+    font-family: 'Scaver-Bold';
+    src: url('Scaver-Bold.ttf') format('truetype');
 }
 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Scaver-Bold', sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    /* Cyan → Purple → Pink */
+    background-color: #0B0F1A;
+
+    position: relative;
+}
+
+
+.login-card{
+    width: 400px;
+    padding: 40px;
+
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        0 0 30px rgba(123, 47, 247, 0.15);
+
+    color: white;
+}
+
+.login-card h3{
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+label{
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+input{
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input::placeholder{
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus{
+    border-color: #00d4ff;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+button{
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: linear-gradient(
+        90deg,
+        #00d4ff,
+        #7b2ff7,
+        #ff4ecd
+    );
+
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(123, 47, 247, 0.4);
+}
+
+button:active{
+    transform: scale(0.98);
+}
+
+@media (max-width: 480px){
+    .login-card{
+        width: 90%;
+        padding: 30px 25px;
+    }
+}
+/* Secondary button */
+.secondary-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+
+    background: transparent;
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.secondary-btn:hover {
+    border-color: #7B2FF7;
+    background: rgba(123, 47, 247, 0.15);
+}

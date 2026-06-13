@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback – CSEHUB</title>
+
+  <!-- SweetAlert2 (optional, kept for general project style/compat if needed, though not strictly required now) -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Link to original global styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    @font-face {
+      font-family: 'Scaver-Bold';
+      src: url('Scaver-Bold.ttf') format('truetype');
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Scaver-Bold', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px 60px;
+
+      background:
+        radial-gradient(circle at top left,
+          rgba(0, 212, 255, 0.08),
+          transparent 30%),
+        radial-gradient(circle at bottom right,
+          rgba(255, 78, 205, 0.08),
+          transparent 30%),
+        #0B0F1A;
+
+      color: #F7F7FF;
+      overflow-x: hidden;
+    }
+
+    /* ── Menu offset and layout wrapper ── */
+    .feedback-container {
+      width: 100%;
+      max-width: 760px;
+      margin-top: 110px; /* Offsets the fixed nav menu */
+      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── Card ── */
+    .feedback-card {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+
+      padding: 40px;
+
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(124, 77, 255, 0.15);
+    }
+
+    /* ── Header ── */
+    .card-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .card-header .emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 12px;
+      animation: bounce 1.5s ease infinite alternate;
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-8px);
+      }
+    }
+
+    .card-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      background: linear-gradient(90deg, #00F5FF, #7C4DFF, #FF2DAA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .card-header p {
+      font-size: 0.95rem;
+      color: rgba(247, 247, 255, 0.7);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Iframe Wrapper ── */
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      height: 1351px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .iframe-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── Loading Spinner ── */
+    .spinner-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0B0F1A;
+      z-index: 10;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .spinner-container.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(0, 245, 255, 0.1);
+      border-top-color: #00F5FF;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-text {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: rgba(247, 247, 255, 0.6);
+      letter-spacing: 1.5px;
+      font-weight: 500;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(124, 77, 255, 0.3), transparent);
+      margin: 30px 0;
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+      font-size: 0.95rem;
+      color: rgba(247, 247, 255, 0.55);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #00F5FF;
+      transform: translateY(-2px);
+    }
+
+    /* ── Responsive adjustments ── */
+    @media (max-width: 768px) {
+      .feedback-container {
+        margin-top: 100px;
+        padding: 0 10px;
+      }
+
+      .feedback-card {
+        padding: 24px 16px;
+        border-radius: 20px;
+      }
+
+      .card-header {
+        margin-bottom: 25px;
+      }
+
+      .card-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .iframe-wrapper {
+        height: 1000px; /* Slightly shorter on mobile with scroll within form for compact height */
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation Menu -->
+  <nav class="menu">
+    <a href="index.html" class="logo">CSEHUB</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="cgpa.html">CGPA</a>
+  </nav>
+
+  <div class="feedback-container">
+    <div class="feedback-card">
+
+      <!-- Header -->
+      <div class="card-header">
+        <span class="emoji">💬</span>
+        <h1>Share Your Feedback</h1>
+        <p>Help us improve CSEHUB for everyone</p>
+      </div>
+
+      <!-- Google Form Iframe Container -->
+      <div class="iframe-wrapper">
+        <div class="spinner-container" id="iframeSpinner">
+          <div class="spinner"></div>
+          <p class="loading-text">Loading Feedback Form...</p>
+        </div>
+        <iframe 
+          id="googleFormIframe"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSceaPboSBiiZc6aG-z_VsuWuhtmgktlQWA1eRLl4g5jlCgFsg/viewform?embedded=true" 
+          width="640" 
+          height="1351" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0">Loading…</iframe>
+      </div>
+
+      <div class="divider"></div>
+
+      <a href="index.html" class="back-link">← Back to Home</a>
+
+    </div>
+  </div>
+
+  <script>
+    // Hide loading spinner when Google Form is loaded
+    const iframe = document.getElementById('googleFormIframe');
+    const spinner = document.getElementById('iframeSpinner');
+    
+    if (iframe) {
+      iframe.addEventListener('load', () => {
+        spinner.classList.add('hidden');
+      });
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CGPA Calculator</title>
+<style>
+    :root {
+    --cyan: #00F5FF;
+    --purple: #7C4DFF;
+    --pink: #FF2DAA;
+    --bg: #0B0F1A;
+    --white: #F7F7FF;
+
+    --card: rgba(16, 20, 38, 0.85);
+    --input-bg: rgba(247, 247, 255, 0.08);
+    --border: rgba(124, 77, 255, 0.25);
+}
+
+@font-face {
+    font-family: 'Scaver-Bold';
+    src: url('Scaver-Bold.ttf') format('truetype');
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Scaver-Bold', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 110px 20px 20px; /* Offset fixed menu */
+    color: var(--white);
+
+    background:
+        radial-gradient(circle at top left,
+            rgba(0, 245, 255, 0.08),
+            transparent 30%),
+        radial-gradient(circle at bottom right,
+            rgba(255, 45, 170, 0.08),
+            transparent 30%),
+        var(--bg);
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+
+    background: linear-gradient(
+        90deg,
+        var(--cyan),
+        var(--purple),
+        var(--pink)
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.card {
+    background: var(--card);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 20px;
+    margin: 15px 0;
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        0 0 20px rgba(124, 77, 255, 0.08);
+
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 35px rgba(124, 77, 255, 0.18),
+        0 0 20px rgba(0, 245, 255, 0.12);
+}
+
+.controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 12px 18px;
+    margin: 15px;
+    border: none;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    color: var(--white);
+    font-weight: 600;
+
+    background: linear-gradient(
+        90deg,
+        var(--cyan),
+        var(--purple),
+        var(--pink)
+    );
+
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 15px rgba(0, 245, 255, 0.3),
+        0 0 25px rgba(124, 77, 255, 0.3);
+}
+
+input,
+select {
+    width: 100%;
+
+    padding: 12px;
+
+    border-radius: 12px;
+    border: 1px solid var(--border);
+
+    background: var(--input-bg);
+
+    color: var(--white);
+
+    outline: none;
+
+    transition: 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--cyan);
+
+    box-shadow:
+        0 0 10px rgba(0, 245, 255, 0.2);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 10px;
+
+    color: var(--white);
+}
+
+.grid {
+    display: grid;
+
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(280px, 1fr)
+    );
+
+    gap: 20px;
+}
+
+.results {
+    display: grid;
+
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+    );
+
+    gap: 20px;
+
+    margin-top: 25px;
+}
+
+.result {
+    text-align: center;
+}
+
+.result h3 {
+    margin-bottom: 10px;
+
+    color: var(--cyan);
+}
+
+.result div {
+    font-size: 2rem;
+    font-weight: bold;
+
+    color: var(--white);
+}
+
+.small {
+    color: rgba(247, 247, 255, 0.65);
+
+    margin-top: 8px;
+}
+
+#counter {
+    text-align: center;
+
+    color: rgba(247, 247, 255, 0.75);
+
+    margin-bottom: 20px;
+}
+.branch-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.branch-btn {
+    width: auto;
+
+    background: rgba(247, 247, 255, 0.08);
+
+    border: 1px solid var(--border);
+
+    color: var(--white);
+
+    padding: 10px 16px;
+
+    border-radius: 12px;
+
+    transition: 0.3s ease;
+}
+
+.branch-btn:hover {
+    transform: translateY(-2px);
+}
+
+.branch-btn.active {
+    background: linear-gradient(
+        90deg,
+        var(--cyan),
+        var(--purple),
+        var(--pink)
+    );
+
+    border: none;
+}
+
+/* Mobile */
+/* Navigation Menu */
+.menu {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: calc(100% - 20px);
+    max-width: 650px;
+
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 8px;
+
+    border-radius: 999px;
+
+    backdrop-filter: blur(12px) saturate(180%) contrast(200%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%) contrast(200%);
+
+    background: rgba(124, 77, 255, 0.15);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(124, 77, 255, 0.1);
+
+    z-index: 1000;
+}
+
+.menu .logo {
+    font-weight: 700;
+    color: var(--cyan);
+    letter-spacing: 1px;
+}
+
+.menu .logo:hover {
+    color: var(--cyan);
+    transform: none;
+    cursor: none;
+}
+
+.menu a {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: rgba(247, 247, 255, 0.9);
+    padding: 12px 16px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.menu a:hover {
+    color: var(--cyan);
+    transform: translateY(-2px);
+}
+
+.menu a:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 767px) {
+    body {
+        padding: 100px 15px 15px; /* Offset fixed menu on mobile */
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .result div {
+        font-size: 1.7rem;
+    }
+
+    .menu {
+        gap: 2px;
+        padding: 4px;
+    }
+
+    .menu a {
+        padding: 8px 6px;
+        font-size: 0.75rem;
+    }
+}
+</style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="menu">
+        <a href="index.html" class="logo">CSEHUB</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="feedback.html">Feedback</a>
+    </nav>
+<div class="container">
+<h1>CGPA Calculator</h1>
+
+<div class="card">
+    <label>Branch</label>
+
+    <div class="branch-buttons">
+        <button type="button" class="branch-btn active" data-branch="cse">CSE</button>
+        <button type="button" class="branch-btn" data-branch="ece">ECE</button>
+        <button type="button" class="branch-btn" data-branch="it">IT</button>
+        <button type="button" class="branch-btn" data-branch="eee">EEE</button>
+        <button type="button" class="branch-btn" data-branch="mech">MECH</button>
+        <button type="button" class="branch-btn" data-branch="civ">CIVIL</button>
+        <button type="button" class="branch-btn" data-branch="csm">CSM</button>
+        <button type="button" class="branch-btn" data-branch="aim">AIM</button>
+        <button type="button" class="branch-btn" data-branch="aid">AID</button>
+        <button type="button" class="branch-btn" data-branch="cic">CIC</button>
+    </div>
+</div>
+
+<div class="controls">
+<button onclick="addSemester()">Add Semester</button>
+<button onclick="calculateCGPA()">Calculate</button>
+<button onclick="resetAll()">Reset</button>
+</div>
+
+<div id="counter"></div>
+<div id="semesters" class="grid"></div>
+
+<div class="results">
+<div class="card result"><h3>Total Credits</h3><div id="totalCredits">0</div></div>
+<div class="card result"><h3>Weighted Points</h3><div id="weightedPoints">0</div></div>
+<div class="card result"><h3>CGPA</h3><div id="cgpa">0.00</div></div>
+</div>
+</div>
+
+<script>
+const branchCredits={
+cse:[19.5,20.5,19,22,23,23,21,12],
+ece:[22,22,21,22,23,22,18,15],
+it:[22,22,21,22,23,22,18,15],
+eee:[22,22,21,22,23,22,18,15],
+mech:[22,22,21,22,23,22,18,15],
+civ:[22,22,21,22,23,22,18,15],
+csm:[22,22,21,22,23,22,18,15],
+aim:[22,22,21,22,23,22,18,15],
+aid:[22,22,21,22,23,22,18,15],
+cic:[22,22,21,22,23,22,18,15]
+};
+
+let semCount=0,maxSem=8;
+let currentBranch = "cse";
+
+function credits(i){
+    return branchCredits[currentBranch][i] || 0;
+}
+
+function updateCounter(){
+ document.getElementById('counter').innerText=`${semCount} of 8 semesters added`;
+}
+
+function addSemester(){
+ if(semCount>=maxSem)return;
+ semCount++;
+ const div=document.createElement('div');
+ div.className='card semester';
+ div.innerHTML=`
+ <h3>Semester ${semCount}</h3>
+ <label>Credits</label>
+ <input class="credit" readonly value="${credits(semCount-1)}">
+ <label>SGPA</label>
+ <input class="sgpa" type="number" min="0" max="10" step="0.01">
+ ${semCount>1?'<button onclick="removeSemester(this)">Remove</button>':''}`;
+ document.getElementById('semesters').appendChild(div);
+ div.querySelector('.sgpa').addEventListener('input',calculateCGPA);
+ updateCounter();
+}
+
+function removeSemester(btn){
+ btn.parentElement.remove();
+ semCount--;
+ [...document.querySelectorAll('.semester h3')].forEach((e,i)=>e.textContent=`Semester ${i+1}`);
+ updateCredits();
+ updateCounter();
+ calculateCGPA();
+}
+
+function updateCredits(){
+ document.querySelectorAll('.semester').forEach((card,i)=>{
+   card.querySelector('.credit').value=credits(i);
+ });
+}
+
+function calculateCGPA(){
+ let tc=0, wp=0;
+ document.querySelectorAll('.semester').forEach((card,i)=>{
+   const c=credits(i);
+   const s=parseFloat(card.querySelector('.sgpa').value)||0;
+   tc+=c; wp+=c*s;
+ });
+ document.getElementById('totalCredits').innerText=tc;
+ document.getElementById('weightedPoints').innerText=wp.toFixed(2);
+ document.getElementById('cgpa').innerText=(tc?wp/tc:0).toFixed(2);
+}
+
+function resetAll(){
+ document.getElementById('semesters').innerHTML='';
+ semCount=0;
+ addSemester();
+ calculateCGPA();
+}
+
+document.querySelectorAll('.branch-btn').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+        document.querySelectorAll('.branch-btn')
+            .forEach(b => b.classList.remove('active'));
+
+        btn.classList.add('active');
+
+        currentBranch = btn.dataset.branch;
+
+        updateCredits();
+
+        calculateCGPA();
+    });
+
+});
+
+addSemester();
+</script>
+</body>
+</html>

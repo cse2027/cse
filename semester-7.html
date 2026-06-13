@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice - Semester 7</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #0B0F1A;
+            color: #F7F7FF;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Scaver-Bold', sans-serif;
+        }
+        .notice-container {
+            max-width: 500px;
+            animation: fadeIn 0.8s ease;
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #00F5FF, #7C4DFF, #FF2DAA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        p {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            color: rgba(247, 247, 255, 0.8);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="notice-container">
+        <h1>Coming Soon</h1>
+        <p>Materials for Semester-7 will be added soon. In the meantime, please explore other semesters' resources.</p>
+        <a href="index.html" class="open-btn">Explore Other Materials</a>
+    </div>
+</body>
+</html>
