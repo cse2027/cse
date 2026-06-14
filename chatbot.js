@@ -376,6 +376,27 @@
         const cleanQuery = query.toLowerCase().trim();
 
         // 0. Conversational rule-based responses
+        if (/^(no|nope|nah|no\s?thanks|nevermind|nothing)$/i.test(cleanQuery) || /\b(no\s?thanks|nevermind)\b/i.test(cleanQuery)) {
+            setTimeout(() => {
+                addBotMessage("Thank you! Enjoy your day and happy learning! 🌟");
+            }, 400);
+            return;
+        }
+
+        if (/\b(about|who\s?created|purpose|disclaimer|info\s?about)\b/i.test(cleanQuery)) {
+            setTimeout(() => {
+                addBotMessage("You can view our details, project contributors, and disclaimers on the About page. ℹ️<br><br><a href='about.html' class='chat-resource-btn'>Go to About Page</a>");
+            }, 400);
+            return;
+        }
+
+        if (/\b(cgpa|gpa|calculator|calculate)\b/i.test(cleanQuery)) {
+            setTimeout(() => {
+                addBotMessage("Use our CGPA calculator to quickly check your academic scores and SGPA. 📊<br><br><a href='cgpa.html' class='chat-resource-btn'>Go to CGPA Calculator</a>");
+            }, 400);
+            return;
+        }
+
         if (/\b(thank\s?you|thanks|thankyou|ty|tanks|thx)\b/i.test(cleanQuery)) {
             setTimeout(() => {
                 addBotMessage("You're very welcome! Enjoy your day and happy learning! 🌟");
