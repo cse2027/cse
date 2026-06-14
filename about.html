@@ -371,9 +371,20 @@ body {
 }
 
 /* responsive */
-@media (max-width:600px){
-    .stack{
-        height: 540px;
+@media (max-width: 767px) {
+    .stack {
+        height: 450px;
+    }
+
+    .card .content {
+        max-height: none !important;
+        overflow-y: visible !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .stack {
+        height: 520px;
     }
 }
 </style>
